@@ -2,8 +2,9 @@ VisualMusic
 ===========
 
 HTML5 music visualization (Chrome only)
+forked from [https://github.com/surunzi/VisualMusic](https://github.com/surunzi/VisualMusic)
 
-Download the files directly or visit the page online [here](http://surunzi.github.io/VisualMusic/).
+Download the files directly or visit the page online [here](http://mnaukal.github.io/VisualMusic/) (my version).
 
 ##How to use it
 
