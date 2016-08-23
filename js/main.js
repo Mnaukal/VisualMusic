@@ -12,6 +12,7 @@ var $body = $('body'),
     $songName = $('#song-name'),
     songNameTimer = null,
     $title = $('#title'),
+    $play = $("#playButton"),
     audio = util.getById('music'), // 音频
     currentFile = -1, // 当前播放文件序号
     doc = document,
@@ -24,7 +25,7 @@ var $body = $('body'),
 
 function loadFile(file) {
     var data = URL.createObjectURL(file);
-    $title.text('');
+    $title.addClass('hidden');
     $music.removeClass('hidden');
     $helpWrapper.addClass('hidden');
     audio.src = data;
@@ -223,6 +224,16 @@ function stopPlay() {
     audio.pause();
 }
 
+function menu() {
+    if ($fileListWrapper.css('left') != '0px') {
+        $fileListWrapper.css({'left':'0'});
+        $effectListWrapper.css({'right':'0'});
+    } else {
+        $fileListWrapper.css({'left':'-200px'});
+        $effectListWrapper.css({'right':'-200px'});
+    }
+}
+
 $body.on('click', '#help-btn', function() {
     // 帮助渐隐渐入
     $('#help').fadeIn('fast');
@@ -240,6 +251,21 @@ $body.on('click', '#help-btn', function() {
 }).on('click', '#fullscreen', function() {
     // 全屏切换
     util.fullscreenSwitch();
+}).on('click', '#menuButton', function() {
+    // menu (right click)
+    menu();
+}).on('click', '#prevButton', function() {
+    // previous
+    playPre();
+}).on('click', '#playButton', function() {
+    // play or pause
+    playToggle();
+}).on('click', '#nextButton', function() {
+    // next
+    playNext();
+}).on('click', '#plusButton', function() {
+    // open file
+    $inputFile.click();
 });
 
 // 文件拖曳
@@ -253,19 +279,21 @@ doc.addEventListener("dragover", dragAndDropCommon, false);
 audio.addEventListener('ended', function() {
     onMusicEnded();
 }, false);
+audio.addEventListener('play', function() {
+    $play.attr("src", "img/controls/pause.png");
+}, false);
+audio.addEventListener('pause', function() {
+    $play.attr("src", "img/controls/play.png");
+}, false);
+
+
 
 $body.on('click', '#file-list li', function() {
     var songNum = $(this).attr('num');
     playSpecify(+songNum);
 }).on('contextmenu', function(e) {
     e.preventDefault();
-    if ($fileListWrapper.css('left') != '0px') {
-        $fileListWrapper.css({'left':'0'});
-        $effectListWrapper.css({'right':'0'});
-    } else {
-        $fileListWrapper.css({'left':'-200px'});
-        $effectListWrapper.css({'right':'-200px'});
-    }
+    menu();
 });
 
 doc.addEventListener('keydown', function(e) {
