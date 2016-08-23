@@ -260,13 +260,34 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-text-stroke: 1px #fff;
     overflow: hidden;
     line-height: 100px;
-    cursor: pointer;
 }
 
 #visual-canvas, #threed-webgl-renderer, #threed-canvas-renderer{
     position: fixed;
     width: 100%;
     height: 100%;
+}
+
+#controls {
+    position: absolute;
+    width: 500px;
+    bottom: 10%;
+    height: 100px;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+#controls img {
+    width: 64px;
+    height: 64px;
+    margin: 15px;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#controls img:hover {
+    opacity: 0.9;
 }
 
 .hidden {
